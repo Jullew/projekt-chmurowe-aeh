@@ -1,30 +1,31 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import Header from "./components/Header";
-import Search from "./components/Search";
-import { useState } from "react";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from './components/Header';
+import Search from './components/Search';
+import { useState } from 'react';
 
 const UNSPLASH_KEY = process.env.REACT_APP_UNSPLASH_KEY;
 
 function App() {
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
+  const [images, setImages] = useState([]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     fetch(
-      `https://api.unsplash.com/photos/random?query=${text}&client_id=${UNSPLASH_KEY}`
+      `https://api.unsplash.com/photos/random?query=${text}&client_id=${UNSPLASH_KEY}`,
     ).then((res) =>
       res
         .json()
         .then((data) => {
           console.log(data);
+          setImages([data, ...images]);
         })
         .catch((err) => {
           console.log(err);
-        })
+        }),
     );
 
-    setText("");
+    setText('');
   };
 
   return (
