@@ -23,6 +23,8 @@ function App() {
           console.log(err);
         })
     );
+
+    setText("");
   };
 
   return (
