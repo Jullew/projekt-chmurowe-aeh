@@ -4,6 +4,7 @@ import Search from './components/Search';
 import { useState } from 'react';
 import ImageCard from "./components/ImageCard";
 import { Col, Container, Row } from "react-bootstrap";
+import Welcome from "./components/Welcome";
 
 const UNSPLASH_KEY = process.env.REACT_APP_UNSPLASH_KEY;
 
@@ -40,14 +41,17 @@ function App() {
       <Header title="Images Gallery - AEH project" />
       <Search text={text} setText={setText} handleSubmit={handleSearchSubmit} />
       <Container className="mt-4">
-        <Row xs={1} md={2} lg={3}>
-          {images.length > 0 &&
-            images.map((item, index) => (
+        {images.length ? (
+          <Row xs={1} md={2} lg={3}>
+            {images.map((item, index) => (
               <Col key={index} className="pb-3">
                 <ImageCard image={item} deleteImage={handleDeleteImage} />
               </Col>
             ))}
-        </Row>
+          </Row>
+        ) : (
+          <Welcome />
+        )}
       </Container>
     </div>
   );
