@@ -28,7 +28,6 @@ function App() {
 
     setText("");
   };
-  console.log(images);
 
   const handleDeleteImage = (id) => {
     setImages(images.filter((image) => image.id !== id));
