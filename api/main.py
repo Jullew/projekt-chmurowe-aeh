@@ -1,10 +1,15 @@
-# save this as app.py
+import os
 import requests
 from flask import Flask, request
+from dotenv import load_dotenv
 
+load_dotenv(dotenv_path="./.env.local")
 
 UNSPLASH_URL = 'https://api.unsplash.com/photos/random'
-UNSPLASH_KEY = '94jB4CI0IBCmv2R5ZbAvkJlpYQ4OrxFX2k8SZfnKVOs'
+UNSPLASH_KEY = os.environ.get('UNSPLASH_KEY', "")
+
+if not UNSPLASH_KEY:
+    raise EnvironmentError("Please create .env.local file and insert there UNSPLASH_KEY")
 
 app = Flask(__name__)
 
