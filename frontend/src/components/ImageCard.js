@@ -10,6 +10,12 @@ const ImageCard = ({ image, deleteImage }) => {
         <Card.Title>{image.title.toUpperCase()}</Card.Title>
         <Card.Text>{image.description || image.alt_description}</Card.Text>
         <Button variant="primary" onClick={() => deleteImage(image.id)}>
+          Save
+        </Button>
+        <Button
+          className="bg-red-500 outline-none hover:bg-red-700 hover:border-red-900 border-red-700 ml-2"
+          onClick={() => deleteImage(image.id)}
+        >
           Delete
         </Button>
       </Card.Body>
