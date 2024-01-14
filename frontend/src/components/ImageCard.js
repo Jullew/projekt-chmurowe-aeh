@@ -22,15 +22,6 @@ const ImageCard = ({ image, deleteImage, saveImage, status, imageID }) => {
           Delete
         </Button>
       </Card.Body>
-      <div className="p-2 flex justify-center items-center">
-        {imageID === image.id ? (
-          <span className="text-green-600 bg-green-200 border-green-400 border-1 rounded-md font-bold py-1 px-2">
-            {status}
-          </span>
-        ) : (
-          ""
-        )}
-      </div>
     </Card>
   );
 };

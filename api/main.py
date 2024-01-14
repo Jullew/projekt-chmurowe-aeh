@@ -48,5 +48,15 @@ def images_api():
         return {"inserted_id": inserted_id}
 
 
+@app.route("/images/<image_id>", methods=["DELETE"])
+def delete_image(image_id):
+    image = images.find_one({"_id": image_id})
+    if image:
+        images.delete_one({"_id": image_id})
+        return {"message": "Obraz został usunięty."}, 200
+    else:
+        return {"error": "Nie znaleziono obrazu o podanym ID."}, 404
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5050)

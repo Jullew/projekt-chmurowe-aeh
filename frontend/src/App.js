@@ -6,6 +6,7 @@ import ImageCard from "./components/ImageCard";
 import { Col, Container, Row } from "react-bootstrap";
 import Welcome from "./components/Welcome";
 import axios from "axios";
+import { motion } from "framer-motion";
 
 const API_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:5050";
 
@@ -52,7 +53,7 @@ function App() {
           image.id === id ? { ...image, saved: true } : image
         );
       }
-      setStatus("Picture has been saved!");
+      setStatus("saved");
       setImageID(id);
 
       setTimeout(() => {
@@ -64,14 +65,50 @@ function App() {
     }
   };
 
-  const handleDeleteImage = (id) => {
+  const handleDeleteImage = async (id) => {
     setImages(images.filter((image) => image.id !== id));
+    try {
+      await axios.delete(`${API_URL}/images/${id}`);
+      setStatus("deleted");
+      setImageID(id);
+
+      setTimeout(() => {
+        setStatus("");
+        setImageID(null);
+      }, 3000);
+      console.log("Obraz o id ", id, " usuniety");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div className="App">
       <Header title="Images Gallery - AEH project" />
       <Search text={text} setText={setText} handleSubmit={handleSearchSubmit} />
+      <div className="p-2 flex h-[50px] justify-center items-center">
+        {status === "saved" ? (
+          <motion.span
+            className="text-green-600 bg-green-200 border-green-400 border-1 rounded-md font-bold py-1 px-2"
+            initial={{ opacity: 0, scale: 0.3 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
+          >
+            Picture has been saved!
+          </motion.span>
+        ) : status === "deleted" ? (
+          <motion.span
+            className="text-red-600 bg-red-200 border-red-400 border-1 rounded-md font-bold py-1 px-2"
+            initial={{ opacity: 0, scale: 0.3 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
+          >
+            Picture has been deleted!
+          </motion.span>
+        ) : (
+          ""
+        )}
+      </div>
       <Container className="mt-4">
         {images.length ? (
           <Row xs={1} md={2} lg={3}>
