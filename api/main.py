@@ -42,6 +42,11 @@ def images_api():
         return jsonify([img for img in res])
     if request.method == "POST":
         image = request.get_json()
+        if "errors" in image:
+            return (
+                jsonify({"error": "Invalid request", "details": image["errors"]}),
+                400,
+            )
         image["_id"] = image.get("id")
         result = images.insert_one(image)
         inserted_id = result.inserted_id
