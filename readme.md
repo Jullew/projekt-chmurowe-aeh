@@ -3,7 +3,7 @@ Application is dockerized completely, so all you need to run this app is to crea
 
 ## Overview
 
-* frontend: React.js app (used react-bootstrap and TailwindCSS)
+* frontend: React.js app (used react-bootstrap, TailwindCSS and framer-motion)
 * backend: Python (used Flask)
 * database: mongodb + mongo-express
 
@@ -54,12 +54,12 @@ Then open `.env.local` and add the missing environemtn variables:
 
 ### 3. **Set up database details**
 
-Open `docker-compose` file in root folder and change database details you have choosen step before.
+Open `docker-compose.yml` file in root folder and change database details you have choosen step before.
 
 ### 4. **Run and build docker-compose**
 
 Use command
 
-`docker-compose up --build`
+`docker-compose up --build -d`
 
 if process is finished you can simply run frontend app `https://localhost:3000` and enjoy of this app.

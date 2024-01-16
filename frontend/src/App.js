@@ -34,10 +34,16 @@ function App() {
     e.preventDefault();
     try {
       const res = await axios.get(`${API_URL}/new-image?query=${text}`);
+      console.log(res.data.errors[0].includes('OAuth error'))
+      if (res.data.errors[0].includes('OAuth error')){
+        setStatus('oauth-error')
+        return;
+      }
       setImages([{ ...res.data, title: text }, ...images]);
     } catch (error) {
       console.log(error);
-    }
+
+  }
     setText("");
   };
 
@@ -104,6 +110,15 @@ function App() {
             exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
           >
             Picture has been deleted!
+          </motion.span>
+        ) : status === "oauth-error" ? (
+          <motion.span
+            className="text-red-600 bg-red-200 border-red-400 border-1 rounded-md font-bold py-1 px-2"
+            initial={{ opacity: 0, scale: 0.3 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
+          >
+            Error! Check Unsplash API key!
           </motion.span>
         ) : (
           ""
