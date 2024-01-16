@@ -34,16 +34,14 @@ function App() {
     e.preventDefault();
     try {
       const res = await axios.get(`${API_URL}/new-image?query=${text}`);
-      console.log(res.data.errors[0].includes('OAuth error'))
-      if (res.data.errors[0].includes('OAuth error')){
+      if (Array.isArray(res.data.errors) && res.data.errors[0].includes('OAuth error')){
         setStatus('oauth-error')
         return;
       }
       setImages([{ ...res.data, title: text }, ...images]);
     } catch (error) {
       console.log(error);
-
-  }
+    }
     setText("");
   };
 
