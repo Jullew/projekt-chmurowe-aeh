@@ -5,7 +5,7 @@ services:
     restart: always
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=very-hard-password
+      - MONGO_INITDB_ROOT_PASSWORD=qwert123
     volumes:
       - mongodb_data:/data/db
   mongo-express:
@@ -16,7 +16,7 @@ services:
     environment:
       - ME_CONFIG_MONGODB_SERVER=mongo
       - ME_CONFIG_MONGODB_ADMINUSERNAME=root
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=very-hard-password
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=qwert123
     depends_on:
       - mongo
   frontend:
